@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import Dashboard from "./components/dashboard/Dashboard";
 import "./index.css";
 
 const App = () => {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
+
+  const [isLoggedin, setIsLoggedIn] = useState(false);
+  const [error, setError] = useState("");
 
   const handleClick = () => {
     setUser(user);
@@ -12,7 +16,9 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    user === "user" && pass === "1234" ? alert("Logged In") : alert("Error");
+    user === "user" && pass === "1234"
+      ? setIsLoggedIn(true)
+      : setError("Usuario o contraseña incorrecta");
   };
 
   return (
@@ -43,6 +49,11 @@ const App = () => {
             onClick={handleClick}
             className="btn btn-login"
           />
+          {isLoggedin ? (
+            <Dashboard />
+          ) : (
+            <p className="mt-4 text-red">{error}</p>
+          )}
         </form>
       </div>
     </>
